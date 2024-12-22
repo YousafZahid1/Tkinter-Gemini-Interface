@@ -1,0 +1,51 @@
+import google.generativeai as genai
+import tkinter as tk
+import os
+
+
+#importing 
+
+size = tk.Tk()
+size.title("OPEN AI")
+size.geometry("500x500")
+
+
+#Google API /AI
+
+genai.configure(api_key = "your_api_key")
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+
+#Text Displayed to user
+
+label01 = tk.Label(size,text="OPEN AI",font=("Arial",16))
+label01.pack()
+
+label02 = tk.Label(size,text="How may I help you?",font=("Arial",16)).place(x=150,y=60)
+
+
+#label being updated
+label03 = tk.Label(size ,text="",font=("Arial",16))
+label03.place(x=10,y=200)
+
+
+#user input's
+
+input01 = tk.Entry(size,width=40)
+input01.place(x=120,y=110)
+
+
+
+#function for openai response
+def update():
+    x=input01.get()
+
+    response = model.generate_content("don't answer the question in no more then 1 and a half sentences"+x)
+
+    label03.config(text=response.text)
+
+
+#Button
+btn1 = tk.Button(size,text="Connect",font=("Arial",14),command=update).place(x=199,y=150)
+
+size.mainloop()
